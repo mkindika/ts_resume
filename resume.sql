@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `ts_resume`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `ts_resume`.`user` (
   `user_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `last_login` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`address` (
   `address_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `street` VARCHAR(255) NULL,
   `city` VARCHAR(255) NULL,
+  `state` VARCHAR(255) NULL,
   `postal_code` VARCHAR(45) NULL,
   `country` VARCHAR(255) NULL,
   PRIMARY KEY (`address_id`))
@@ -79,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`resume` (
   `resume_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` BIGINT UNSIGNED NOT NULL,
   `resume_name` VARCHAR(255) NULL,
+  `template_id` SMALLINT DEFAULT 1,
   `created_on_time` DATETIME NULL,
   `last_accessed_time` TIMESTAMP NULL,
   PRIMARY KEY (`resume_id`),
@@ -91,30 +93,31 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`resume` (
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `ts_resume`.`peronal_info`
+-- Table `ts_resume`.`personal_info`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ts_resume`.`peronal_info` ;
+DROP TABLE IF EXISTS `ts_resume`.`personal_info` ;
 
-CREATE TABLE IF NOT EXISTS `ts_resume`.`peronal_info` (
-  `peronal_info_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `ts_resume`.`personal_info` (
+  `personal_info_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `title` SET('MR', 'MISS', 'MRS', 'DR') NULL,
   `first_name` VARCHAR(255) NOT NULL,
   `last_name` VARCHAR(255) NOT NULL,
   `name_in_full` VARCHAR(255) NULL,
+  `dob` DATE NULL,
   `email` VARCHAR(255) NOT NULL,
   `mobile` VARCHAR(20) NOT NULL,
   `profile_summary` TEXT NULL,
   `address_id` BIGINT UNSIGNED NOT NULL,
   `home_phone` VARCHAR(20) NULL,
   `resume_id` BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY (`peronal_info_id`),
-  INDEX `fk_peronal_info_address1_idx` (`address_id` ASC),
-  CONSTRAINT `fk_peronal_info_address`
+  PRIMARY KEY (`personal_info_id`),
+  INDEX `fk_personal_info_address_idx` (`address_id` ASC),
+  CONSTRAINT `fk_personal_info_address`
     FOREIGN KEY (`address_id`)
     REFERENCES `ts_resume`.`address` (`address_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,  
-  CONSTRAINT `fk_peronal_info_resume`
+  CONSTRAINT `fk_personal_info_resume`
     FOREIGN KEY (`resume_id`)
     REFERENCES `ts_resume`.`resume` (`resume_id`)
     ON DELETE NO ACTION
@@ -136,10 +139,11 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`experience` (
   `to_year` SMALLINT NULL,
   `from_month` TINYINT NULL,
   `to_month` TINYINT NULL,
+  `description` TEXT NULL,
   `resume_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`experience_id`),
-  INDEX `fk_experience_resume1_idx` (`resume_id` ASC),
-  CONSTRAINT `fk_experience_resume1`
+  INDEX `fk_experience_resume_idx` (`resume_id` ASC),
+  CONSTRAINT `fk_experience_resume`
     FOREIGN KEY (`resume_id`)
     REFERENCES `ts_resume`.`resume` (`resume_id`)
     ON DELETE NO ACTION
@@ -159,12 +163,13 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`education` (
   `field_of_study` VARCHAR(255) NULL,
   `from_year` SMALLINT NULL,
   `to_year` SMALLINT NULL,
-  `to_date` TINYINT NULL,
+  `from_month` TINYINT NULL,
+  `to_month` TINYINT NULL,
   `description` TEXT NULL,
   `resume_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`education_id`),
-  INDEX `fk_education_resume1_idx` (`resume_id` ASC),
-  CONSTRAINT `fk_education_resume1`
+  INDEX `fk_education_resume_idx` (`resume_id` ASC),
+  CONSTRAINT `fk_education_resume`
     FOREIGN KEY (`resume_id`)
     REFERENCES `ts_resume`.`resume` (`resume_id`)
     ON DELETE NO ACTION
@@ -197,14 +202,14 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`skill` (
   `description` TEXT NULL,
   `resume_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`skill_id`),
-  INDEX `fk_skill_skill_category1_idx` (`skill_category_id` ASC),
-  INDEX `fk_skill_resume1_idx` (`resume_id` ASC),
-  CONSTRAINT `fk_skill_skill_category1`
+  INDEX `fk_skill_skill_category_idx` (`skill_category_id` ASC),
+  INDEX `fk_skill_resume_idx` (`resume_id` ASC),
+  CONSTRAINT `fk_skill_skill_category`
     FOREIGN KEY (`skill_category_id`)
     REFERENCES `ts_resume`.`skill_category` (`skill_category_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_skill_resume1`
+  CONSTRAINT `fk_skill_resume`
     FOREIGN KEY (`resume_id`)
     REFERENCES `ts_resume`.`resume` (`resume_id`)
     ON DELETE NO ACTION
@@ -222,13 +227,12 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`certificate` (
   `name` VARCHAR(255) NULL,
   `authority` VARCHAR(255) NULL,
   `code_url` VARCHAR(255) NULL,
-  `month_issued` TINYINT NULL,
-  `year_issued` SMALLINT NULL,
+   `date_issued` DATE NULL,
   `description` TEXT NULL,
   `resume_id` BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (`certificate_id`),
-  INDEX `fk_certificate_resume1_idx` (`resume_id` ASC),
-  CONSTRAINT `fk_certificate_resume1`
+  INDEX `fk_certificate_resume_idx` (`resume_id` ASC),
+  CONSTRAINT `fk_certificate_resume`
     FOREIGN KEY (`resume_id`)
     REFERENCES `ts_resume`.`resume` (`resume_id`)
     ON DELETE NO ACTION

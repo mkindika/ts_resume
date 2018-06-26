@@ -19,7 +19,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="user_id")
-	private String userId;
+	private Long userId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_date_time")
@@ -41,22 +41,22 @@ public class User implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to Resume
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private List<Resume> resumes;
 
 	//uni-directional many-to-one association to UserType
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="fk_user_type_id")
 	private UserType userTypeBean;
 
 	public User() {
 	}
 
-	public String getUserId() {
+	public Long getUserId() {
 		return this.userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

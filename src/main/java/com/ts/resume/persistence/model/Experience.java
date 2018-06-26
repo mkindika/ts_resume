@@ -16,7 +16,7 @@ public class Experience implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="experience_id")
-	private String experienceId;
+	private Long experienceId;
 
 	@Column(name="company_name")
 	private String companyName;
@@ -44,11 +44,11 @@ public class Experience implements Serializable {
 	public Experience() {
 	}
 
-	public String getExperienceId() {
+	public Long getExperienceId() {
 		return this.experienceId;
 	}
 
-	public void setExperienceId(String experienceId) {
+	public void setExperienceId(Long experienceId) {
 		this.experienceId = experienceId;
 	}
 

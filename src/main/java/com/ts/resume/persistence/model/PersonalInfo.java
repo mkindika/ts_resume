@@ -1,17 +1,18 @@
 package com.ts.resume.persistence.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
 
+import javax.persistence.*;
 
 /**
  * The persistent class for the peronal_info database table.
  * 
  */
 @Entity
-@Table(name="peronal_info")
-@NamedQuery(name="PeronalInfo.findAll", query="SELECT p FROM PeronalInfo p")
-public class PeronalInfo implements Serializable {
+@Table(name="personal_info")
+@NamedQuery(name="PersonalInfo.findAll", query="SELECT p FROM PersonalInfo p")
+public class PersonalInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,6 +35,8 @@ public class PeronalInfo implements Serializable {
 
 	@Column(name="name_in_full")
 	private String nameInFull;
+	
+	private Date dob;
 
 	@Lob
 	@Column(name="profile_summary")
@@ -51,15 +54,15 @@ public class PeronalInfo implements Serializable {
 	@JoinColumn(name="resume_id")
 	private Resume resume;
 
-	public PeronalInfo() {
+	public PersonalInfo() {
 	}
 
-	public Long getPeronalInfoId() {
+	public Long getPersonalInfoId() {
 		return this.peronalInfoId;
 	}
 
-	public void setPeronalInfoId(Long peronalInfoId) {
-		this.peronalInfoId = peronalInfoId;
+	public void setPersonalInfoId(Long personalInfoId) {
+		this.peronalInfoId = personalInfoId;
 	}
 
 	public String getEmail() {
@@ -140,6 +143,14 @@ public class PeronalInfo implements Serializable {
 
 	public void setResume(Resume resume) {
 		this.resume = resume;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
 }

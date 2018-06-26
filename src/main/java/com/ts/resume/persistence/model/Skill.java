@@ -16,7 +16,7 @@ public class Skill implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="skill_id")
-	private String skillId;
+	private Long skillId;
 
 	@Lob
 	private String description;
@@ -40,11 +40,11 @@ public class Skill implements Serializable {
 	public Skill() {
 	}
 
-	public String getSkillId() {
+	public Long getSkillId() {
 		return this.skillId;
 	}
 
-	public void setSkillId(String skillId) {
+	public void setSkillId(Long skillId) {
 		this.skillId = skillId;
 	}
 

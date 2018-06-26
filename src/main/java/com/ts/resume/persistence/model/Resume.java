@@ -19,7 +19,7 @@ public class Resume implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="resume_id")
-	private String resumeId;
+	private Long resumeId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="created_on_time")
@@ -30,17 +30,20 @@ public class Resume implements Serializable {
 
 	@Column(name="resume_name")
 	private String resumeName;
+	
+	@Column(name="template_id")
+	private Short templateId;
 
 	//bi-directional many-to-one association to Certificate
-	@OneToMany(mappedBy="resume")
+	@OneToMany(mappedBy="resume", fetch = FetchType.LAZY)
 	private List<Certificate> certificates;
 
 	//bi-directional many-to-one association to Education
-	@OneToMany(mappedBy="resume")
+	@OneToMany(mappedBy="resume", fetch = FetchType.LAZY)
 	private List<Education> educations;
 
 	//bi-directional many-to-one association to Experience
-	@OneToMany(mappedBy="resume")
+	@OneToMany(mappedBy="resume", fetch = FetchType.LAZY)
 	private List<Experience> experiences;
 
 	//bi-directional many-to-one association to User
@@ -49,17 +52,17 @@ public class Resume implements Serializable {
 	private User user;
 
 	//bi-directional many-to-one association to Skill
-	@OneToMany(mappedBy="resume")
+	@OneToMany(mappedBy="resume", fetch = FetchType.LAZY)
 	private List<Skill> skills;
 
 	public Resume() {
 	}
 
-	public String getResumeId() {
+	public Long getResumeId() {
 		return this.resumeId;
 	}
 
-	public void setResumeId(String resumeId) {
+	public void setResumeId(Long resumeId) {
 		this.resumeId = resumeId;
 	}
 
@@ -181,6 +184,14 @@ public class Resume implements Serializable {
 		skill.setResume(null);
 
 		return skill;
+	}
+
+	public Short getTemplateId() {
+		return templateId;
+	}
+
+	public void setTemplateId(Short templateId) {
+		this.templateId = templateId;
 	}
 
 }

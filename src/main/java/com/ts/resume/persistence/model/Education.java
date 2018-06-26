@@ -16,7 +16,7 @@ public class Education implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="education_id")
-	private String educationId;
+	private Long educationId;
 
 	private String degree;
 
@@ -45,11 +45,11 @@ public class Education implements Serializable {
 	public Education() {
 	}
 
-	public String getEducationId() {
+	public Long getEducationId() {
 		return this.educationId;
 	}
 
-	public void setEducationId(String educationId) {
+	public void setEducationId(Long educationId) {
 		this.educationId = educationId;
 	}
 

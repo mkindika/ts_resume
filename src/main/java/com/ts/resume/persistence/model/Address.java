@@ -16,25 +16,27 @@ public class Address implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="address_id")
-	private String addressId;
-
+	private Long addressId;
+	
+	private String street;
+	
 	private String city;
 
+	private String state;
+	
 	private String country;
 
 	@Column(name="postal_code")
 	private String postalCode;
 
-	private String street;
-
 	public Address() {
 	}
 
-	public String getAddressId() {
+	public Long getAddressId() {
 		return this.addressId;
 	}
 
-	public void setAddressId(String addressId) {
+	public void setAddressId(Long addressId) {
 		this.addressId = addressId;
 	}
 
@@ -68,6 +70,14 @@ public class Address implements Serializable {
 
 	public void setStreet(String street) {
 		this.street = street;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 }
