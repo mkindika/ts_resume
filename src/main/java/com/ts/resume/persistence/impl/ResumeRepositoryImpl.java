@@ -1,5 +1,6 @@
 package com.ts.resume.persistence.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,7 +17,7 @@ public class ResumeRepositoryImpl extends BaseRepository implements CustomResume
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<ResumeDTO> findAllResumeByUser(String userId) {
+	public Collection<ResumeDTO> findAllResumeByUser(String userId) {
 
 		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("userId", userId);
 		List<ResumeDTO> searchResults = namedParameterJdbcTemplate

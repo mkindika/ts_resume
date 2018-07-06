@@ -14,7 +14,7 @@ public class PersonalInfoRepositoryImpl extends BaseRepository implements Person
 
 	@Override
 	@Transactional(readOnly = true)
-	public PersonalInfoDTO findPersonalInfoByResumeId(String resumeId) {
+	public PersonalInfoDTO findPersonalInfoByResumeId(Long resumeId) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("resumeId", resumeId);
 		PersonalInfoDTO searchResults = namedParameterJdbcTemplate.queryForObject(
         		sqlQueries.getProperty("find.resume.personalinfo"), 

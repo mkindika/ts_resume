@@ -16,7 +16,7 @@ public class EducationRepositoryImpl extends BaseRepository implements CustomEdu
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<EducationDTO> getEducationListByResume(String resumeId) {
+	public List<EducationDTO> getEducationListByResume(Long resumeId) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("resumeId", resumeId);
 		List<EducationDTO> searchResults = namedParameterJdbcTemplate.query(
         		sqlQueries.getProperty("find.education.by.id"), 

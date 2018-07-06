@@ -44,15 +44,32 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`user` (
   `created_date_time` DATETIME NOT NULL,
   `is_active` TINYINT(1) NULL DEFAULT 0,
   `user_type` ENUM('NEW', 'PREMIUM', 'STANDARD') NOT NULL DEFAULT 'NEW',
-  `fk_user_type_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`user_id`),
-  INDEX `fk_user_user_type_idx` (`fk_user_type_id` ASC),
-  CONSTRAINT `fk_user_user_type`
-    FOREIGN KEY (`fk_user_type_id`)
-    REFERENCES `ts_resume`.`user_type` (`user_type_id`)
-    ON DELETE NO ACTION
+  PRIMARY KEY (`user_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `ts_resume`.`personal_info`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ts_resume`.`personal_info` ;
+
+CREATE TABLE IF NOT EXISTS `ts_resume`.`peronal_info` (
+  `peronal_info_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` SET('MR', 'MISS', 'MRS', 'DR') NULL,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `surname` VARCHAR(255) NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `mobile` VARCHAR(20) NOT NULL,
+  `profile_summary` TEXT NULL,
+  `address_id` BIGINT UNSIGNED UNIQUE NOT NULL,
+  `home_phone` VARCHAR(20) NULL,
+   PRIMARY KEY (`peronal_info_id`),
+   FOREIGN KEY(peronal_info_id) REFERENCES `ts_resume`.`user` (`user_id`) 
+	ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -67,7 +84,10 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`address` (
   `state` VARCHAR(255) NULL,
   `postal_code` VARCHAR(45) NULL,
   `country` VARCHAR(255) NULL,
-  PRIMARY KEY (`address_id`))
+  PRIMARY KEY (`address_id`),
+  FOREIGN KEY(address_id) REFERENCES `ts_resume`.`peronal_info` (`peronal_info_id`)
+	ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -90,39 +110,6 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`resume` (
     REFERENCES `ts_resume`.`user` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
--- -----------------------------------------------------
--- Table `ts_resume`.`personal_info`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ts_resume`.`personal_info` ;
-
-CREATE TABLE IF NOT EXISTS `ts_resume`.`personal_info` (
-  `personal_info_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` SET('MR', 'MISS', 'MRS', 'DR') NULL,
-  `first_name` VARCHAR(255) NOT NULL,
-  `last_name` VARCHAR(255) NOT NULL,
-  `name_in_full` VARCHAR(255) NULL,
-  `dob` DATE NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `mobile` VARCHAR(20) NOT NULL,
-  `profile_summary` VARCHAR(4096) NULL,
-  `address_id` BIGINT UNSIGNED NOT NULL,
-  `home_phone` VARCHAR(20) NULL,
-  `resume_id` BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY (`personal_info_id`),
-  INDEX `fk_personal_info_address_idx` (`address_id` ASC),
-  CONSTRAINT `fk_personal_info_address`
-    FOREIGN KEY (`address_id`)
-    REFERENCES `ts_resume`.`address` (`address_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,  
-  CONSTRAINT `fk_personal_info_resume`
-    FOREIGN KEY (`resume_id`)
-    REFERENCES `ts_resume`.`resume` (`resume_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-
 ENGINE = InnoDB;
 
 
@@ -406,6 +393,23 @@ CREATE TABLE IF NOT EXISTS `ts_resume`.`custom_field` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `ts_resume`.`interest`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ts_resume`.`interest` (
+  `interest_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(255) NOT NULL,
+  `description` VARCHAR(4096) NULL,
+  `resume_id` BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY (`interest_id`),
+  INDEX `fk_interest_resume1_idx` (`resume_id` ASC),
+  CONSTRAINT `fk_interest_resume1`
+    FOREIGN KEY (`resume_id`)
+    REFERENCES `ts_resume`.`resume` (`resume_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
