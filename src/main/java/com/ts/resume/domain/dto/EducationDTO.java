@@ -15,6 +15,5 @@ public class EducationDTO {
 	private short fromYear;
 	private short toYear;
 	private byte fromMonth;
-	private byte toMonth; 
-	private Long resumeId;
+	private byte toMonth;
 }

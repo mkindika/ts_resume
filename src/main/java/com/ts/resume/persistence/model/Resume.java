@@ -30,9 +30,6 @@ public class Resume implements Serializable {
 
 	@Column(name="resume_name")
 	private String resumeName;
-	
-	@Column(name="template_id")
-	private Short templateId;
 
 	//bi-directional many-to-one association to Certificate
 	@OneToMany(mappedBy="resume", fetch = FetchType.LAZY)
@@ -184,14 +181,6 @@ public class Resume implements Serializable {
 		skill.setResume(null);
 
 		return skill;
-	}
-
-	public Short getTemplateId() {
-		return templateId;
-	}
-
-	public void setTemplateId(Short templateId) {
-		this.templateId = templateId;
 	}
 
 }

@@ -1,14 +1,15 @@
 package com.ts.resume.persistence.impl;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.ts.resume.domain.dto.ResumeDTO;
 import com.ts.resume.persistence.mapper.ResumeMapper;
 import com.ts.resume.persistence.repos.CustomResumeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResumeRepositoryImpl extends BaseRepository implements CustomResumeRepository {
 
 	@Override
+	@Autowired
+	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+	}
+
+	@Override
 	@Transactional(readOnly = true)
-	public Collection<ResumeDTO> findAllResumeByUser(String userId) {
+	public List<ResumeDTO> findAllResumeByUser(String userId) {
 
 		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("userId", userId);
 		List<ResumeDTO> searchResults = namedParameterJdbcTemplate

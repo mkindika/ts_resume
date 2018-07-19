@@ -2,28 +2,26 @@ package com.ts.resume.persistence.impl;
 
 import java.util.List;
 
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ts.resume.domain.dto.EducationDTO;
-import com.ts.resume.persistence.mapper.EducationMapper;
 import com.ts.resume.persistence.repos.CustomEducationRepository;
 
 @Repository
 public class EducationRepositoryImpl extends BaseRepository implements CustomEducationRepository{
+
+	@Override
+	@Autowired
+	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+	}
 	
 	@Override
-	@Transactional(readOnly = true)
-	public List<EducationDTO> getEducationListByResume(Long resumeId) {
-		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("resumeId", resumeId);
-		List<EducationDTO> searchResults = namedParameterJdbcTemplate.query(
-        		sqlQueries.getProperty("find.education.by.id"), 
-        		namedParameters,
-                new EducationMapper()
-        );
-		return searchResults;
+	public List<EducationDTO> getEducationListByResume(String resumeId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

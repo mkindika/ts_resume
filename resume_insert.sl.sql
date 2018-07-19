@@ -36,23 +36,18 @@ VALUES
 
 
 INSERT INTO `ts_resume`.`certificate`
-(`name`,`authority`,`code_url`,`date_issued`,`description`,`resume_id`)
-VALUES('SCJP- Sun Certified Java Programmer','Sun Microsystem','http:\\sun.com\cert\124','2014-02-05','java certification',2);
+(`name`,`authority`,`code_url`,`month_issued`,`year_issued`,`day_issued`,`description`,`resume_id`)
+VALUES('SCJP- Sun Certified Java Programmer','Sun Microsystem','http:\\sun.com\cert\124','02','1999','15','java certification',2);
 
 INSERT INTO `ts_resume`.`certificate`
-(`name`,`authority`,`code_url`,`date_issued`,`description`,`resume_id`)
-VALUES('SCWCD- Sun Certified Web Developer','Sun Microsystem','http:\\sun.com\cert\1234','2015-05-05','java web certification',2);
+(`name`,`authority`,`code_url`,`month_issued`,`year_issued`,`day_issued`,`description`,`resume_id`)
+VALUES('SCWCD- Sun Certified Web Developer','Sun Microsystem','http:\\sun.com\cert\1234','02','2010','15','java web certification',2);
 
 
 INSERT INTO `ts_resume`.`education`
 (`school`,`degree`,`field_of_study`,`from_year`,`to_year`,`from_month`,`to_month`,`description`,`resume_id`)
 VALUES
 ('University of Moratuwa','BSc - Computer Science','Computer Science','2014','2018','02','08','Bachelor in Science','2');
-
-INSERT INTO `ts_resume`.`education`
-(`school`,`degree`,`field_of_study`,`from_year`,`to_year`,`from_month`,`to_month`,`description`,`resume_id`)
-VALUES
-('University of Peradeniys','MSc - Computer Science','Computer Science','2017','2019','02','08','Master in Science','2');
 
 
 INSERT INTO `ts_resume`.`experience`
@@ -61,11 +56,6 @@ VALUES
 ('Rezgateway','Software Engineer','2015','2018','02','05',
 'Software engineer with 7+ years experience, skilled in C++, ASP.NET, SQL, Java, Python, Javascript, C#, Perl, and PHP, looking for a position as a software developer for Oracle.',
 '2');
-
-INSERT INTO `ts_resume`.`experience`
-(`company_name`,`position_held`,`from_year`,`to_year`,`from_month`,`to_month`,`description`,`resume_id`)
-VALUES
-('IT Center','IT Instructor','2014','2015','05','08','Instructor cum programmer, conducting training programs','2');
 
 INSERT INTO `ts_resume`.`skill_category`
 (`skill_category_text`)

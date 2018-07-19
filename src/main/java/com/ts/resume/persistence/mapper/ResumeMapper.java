@@ -14,7 +14,6 @@ public class ResumeMapper implements RowMapper<ResumeDTO>{
 		
 		ResumeDTO resume = new ResumeDTO();
 		resume.setResumeId(rs.getLong("resume_id"));
-		resume.setTemplateId(rs.getShort("template_id"));
 		resume.setUserId(rs.getLong("user_id"));
 		resume.setResumeName(rs.getString("resume_name"));
 		resume.setCreatedOnTime(rs.getDate("created_on_time"));

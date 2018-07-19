@@ -5,5 +5,5 @@ import java.util.List;
 import com.ts.resume.domain.dto.EducationDTO;
 
 public interface CustomEducationRepository {
-	List<EducationDTO> getEducationListByResume(Long resumeId);
+	List<EducationDTO> getEducationListByResume(String resumeId);
 }

@@ -1,12 +1,11 @@
 package com.ts.resume.persistence.repos;
 
-import java.util.Collection;
-
+import java.util.List;
 
 import com.ts.resume.domain.dto.ResumeDTO;
 
 public interface CustomResumeRepository {
 	
-	Collection<ResumeDTO> findAllResumeByUser(String userId);
+	List<ResumeDTO> findAllResumeByUser(String userId);
 	ResumeDTO findResumeById(String resumeId);
 }

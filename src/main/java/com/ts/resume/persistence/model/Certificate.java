@@ -1,8 +1,6 @@
 package com.ts.resume.persistence.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.*;
 
 
@@ -28,11 +26,13 @@ public class Certificate implements Serializable {
 	@Lob
 	private String description;
 
-	@Column(name="date_issued")
-	private Date dateIssued;
-	
+	@Column(name="month_issued")
+	private byte monthIssued;
+
 	private String name;
 
+	@Column(name="year_issued")
+	private short yearIssued;
 
 	//bi-directional many-to-one association to Resume
 	@ManyToOne
@@ -74,6 +74,14 @@ public class Certificate implements Serializable {
 		this.description = description;
 	}
 
+	public byte getMonthIssued() {
+		return this.monthIssued;
+	}
+
+	public void setMonthIssued(byte monthIssued) {
+		this.monthIssued = monthIssued;
+	}
+
 	public String getName() {
 		return this.name;
 	}
@@ -82,12 +90,12 @@ public class Certificate implements Serializable {
 		this.name = name;
 	}
 
-	public Date getDateIssued() {
-		return dateIssued;
+	public short getYearIssued() {
+		return this.yearIssued;
 	}
 
-	public void setDateIssued(Date dateIssued) {
-		this.dateIssued = dateIssued;
+	public void setYearIssued(short yearIssued) {
+		this.yearIssued = yearIssued;
 	}
 
 	public Resume getResume() {

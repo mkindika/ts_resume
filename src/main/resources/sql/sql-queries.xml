@@ -3,45 +3,24 @@
 <properties>
     <entry key="find.all.resumes.by.user.id">
     <![CDATA[
-		   SELECT resume_id,template_id, user_id, resume_name, created_on_time, last_accessed_time FROM ts_resume.resume where user_id = :userId
+		   SELECT resume_id, user_id, resume_name, created_on_time, last_accessed_time FROM ts_resume.resume where user_id = :userId
 	]]>
 	</entry>
 	<entry key="find.resume.personalinfo">
-	    <![CDATA[
-			   SELECT pi.personal_info_id,pi.title,pi.first_name,pi.last_name,pi.name_in_full,pi.dob,
-				pi.email,pi.mobile,pi.profile_summary,pi.home_phone,pi.resume_id,
-				ad.address_id,ad.street,ad.city,ad.state,ad.postal_code,ad.country
-				FROM ts_resume.personal_info pi
-				JOIN ts_resume.address ad on pi.address_id = ad.address_id
-				WHERE pi.resume_id = :resumeId
-		]]>
+    <![CDATA[
+		   SELECT pi.personal_info_id,pi.title,pi.first_name,pi.last_name,pi.name_in_full,pi.dob,
+			pi.email,pi.mobile,pi.profile_summary,pi.home_phone,pi.resume_id,
+			ad.address_id,ad.street,ad.city,ad.state,ad.postal_code,ad.country
+			FROM ts_resume.personal_info pi
+			join ts_resume.address ad on pi.address_id = ad.address_id
+			WHERE pi.resume_id = :resumeId
+	]]>
 	</entry>
 	
 	<entry key="find.resume.by.id">
-	    <![CDATA[
-			    SELECT resume_id, user_id, resume_name,template_id, created_on_time, last_accessed_time 
-			    FROM ts_resume.resume where resume_id = :resumeId
-		]]>
+    <![CDATA[
+		    SELECT resume_id, user_id, resume_name, created_on_time, last_accessed_time FROM ts_resume.resume where resume_id = :resumeId
+	]]>
 	</entry>
-	
-	<entry key="find.education.by.id">
-	    <![CDATA[
-			    SELECT education_id,school,degree,field_of_study,from_year,to_year,from_month,to_month,description,resume_id 
-			    FROM ts_resume.education WHERE resume_id = :resumeId
-		]]>
-	</entry>
-	<entry key="find.experience.by.id">
-	    <![CDATA[
-			    SELECT experience_id,company_name,position_held,from_year,to_year,from_month,to_month,description,resume_id 
-			    FROM ts_resume.experience WHERE resume_id = :resumeId
-		]]>
-	</entry>
-	<entry key="find.certificate.by.id">
-	    <![CDATA[
-			    SELECT certificate_id,name,authority,code_url,date_issued,description,resume_id 
-			    FROM ts_resume.certificate where resume_id = :resumeId
-		]]>
-	</entry>
-	
 	
 </properties>

@@ -17,14 +17,20 @@ import lombok.NoArgsConstructor;
 @Data
 public class ResumeDTO {
 	
+	@JsonProperty 
 	private Long resumeId;
 	
 	@JsonSerialize(using = CustomDateSerializer.class)
+	@JsonProperty 
 	private Date createdOnTime;
 	
-	@JsonSerialize(using = CustomDateSerializer.class) 
+	@JsonSerialize(using = CustomDateSerializer.class)
+	@JsonProperty 
 	private Timestamp lastAccessedTime;
+	
+	@JsonProperty 
 	private String resumeName;
+	
+	@JsonProperty 
 	private Long userId;
-	private Short templateId;
 }
